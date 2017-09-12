@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Tasty Baking</string>
+    <string name="appwidget_text">Tasty Baking</string>
+    <string name="add_widget">Add widget</string>
+</resources>
