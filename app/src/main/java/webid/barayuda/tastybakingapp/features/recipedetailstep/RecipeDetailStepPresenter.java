@@ -1,9 +1,13 @@
 package webid.barayuda.tastybakingapp.features.recipedetailstep;
 
+import android.content.ContentResolver;
+import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Looper;
 import android.util.Log;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.BitmapImageViewTarget;
 import com.google.android.exoplayer2.DefaultRenderersFactory;
 import com.google.android.exoplayer2.ExoPlayerFactory;
 import com.google.android.exoplayer2.SimpleExoPlayer;
@@ -29,6 +33,7 @@ import webid.barayuda.tastybakingapp.util.URLUtils;
 public class RecipeDetailStepPresenter implements BasePresenter<RecipeDetailStepView> {
 
     private static final String TAG = RecipeDetailStepPresenter.class.getSimpleName();
+    private String urlNotFound = "http://www.acsu.buffalo.edu/~rslaine/imageNotFound.jpg";
 
     private RecipeDetailStepView view;
     private Gson gson = new Gson();
@@ -78,7 +83,16 @@ public class RecipeDetailStepPresenter implements BasePresenter<RecipeDetailStep
     void setupImage(String imageURL){
         Glide.with(view.getContextFromFragment())
                 .load(imageURL)
-                .into(view.getImageView());
+                .asBitmap()
+                .centerCrop()
+                //.into(view.getImageView());
+                .into(new BitmapImageViewTarget(view.getImageView()) {
+                    @Override
+                    protected void setResource(Bitmap resource) {
+                        //Play with bitmap
+                        super.setResource(resource);
+                    }
+                });
         view.onImageSet();
     }
 
@@ -88,7 +102,9 @@ public class RecipeDetailStepPresenter implements BasePresenter<RecipeDetailStep
             public void run(){
                 try {
                     contentType = URLUtils.getContentType(url);
-                    Log.i(TAG, "content -->"+contentType);
+                    Log.i(TAG, "[url] -->"+url);
+                    Log.i(TAG, "[type] -->"+type+" [contentType] -->"+contentType);
+
                     if(type.equals("video")){
                         //check if content-type valid
                         if(ContentTypeUtils.isVideo(contentType)){
@@ -102,13 +118,15 @@ public class RecipeDetailStepPresenter implements BasePresenter<RecipeDetailStep
                             Log.w(TAG, "unknown content");
                         }
                     }else if(type.equals("image")){
+
                         //check if content-type valid
                         if(ContentTypeUtils.isImage(contentType)){
                             //image is valid
                             setupImage(url);
                         }else if(ContentTypeUtils.isVideo(contentType)){
-                            //whoa! its actually a video!
-                            setupPlayer(Uri.parse(url));
+                            //whoa! its thumbnailURL actually a video!, set not found image
+                            Looper.prepare();
+                            setupImage(urlNotFound);
                         }else{
                             //wtf is this content?
                             Log.w(TAG, "unknown content");
