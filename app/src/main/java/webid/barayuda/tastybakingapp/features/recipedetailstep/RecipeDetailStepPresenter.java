@@ -33,7 +33,7 @@ import webid.barayuda.tastybakingapp.util.URLUtils;
 public class RecipeDetailStepPresenter implements BasePresenter<RecipeDetailStepView> {
 
     private static final String TAG = RecipeDetailStepPresenter.class.getSimpleName();
-    private String urlNotFound = "http://www.acsu.buffalo.edu/~rslaine/imageNotFound.jpg";
+    private String urlNotFound = "https://image.ibb.co/kRVoik/image_Not_Found.jpg";
 
     private RecipeDetailStepView view;
     private Gson gson = new Gson();
