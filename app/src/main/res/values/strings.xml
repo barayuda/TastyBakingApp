@@ -2,4 +2,6 @@
     <string name="app_name">Tasty Baking</string>
     <string name="appwidget_text">Tasty Baking</string>
     <string name="add_widget">Add widget</string>
+
+    <string name="placeholder_ingredient">INGREDIENT</string>
 </resources>

@@ -93,6 +93,8 @@ public class RecipeDetailStepFragment extends Fragment implements RecipeDetailSt
     public RecipeDetailStepFragment() {
     }
 
+
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -150,6 +152,18 @@ public class RecipeDetailStepFragment extends Fragment implements RecipeDetailSt
         Log.i(TAG, "onPause");
         if (Util.SDK_INT <= 23) {
             releasePlayer();
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (mPlayer != null) {
+            playbackPosition = mPlayer.getCurrentPosition();
+            Log.i(TAG, "pos---> " + playbackPosition);
+            currentWindow = mPlayer.getCurrentWindowIndex();
+            mPlayer.setPlayWhenReady(true);
+            mPlayer.seekTo(currentWindow, playbackPosition);
         }
     }
 

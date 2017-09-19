@@ -21,12 +21,12 @@
             android:layout_height="wrap_content"
             android:background="@color/colorAccent"
             android:orientation="vertical"
-            android:padding="10dp">
+            android:padding="@dimen/fragment_step_padding_layout">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="INGREDIENTS"
+                android:text="@string/placeholder_ingredient"
                 android:textColor="@color/icons"
                 android:textSize="15sp"
                 android:textStyle="bold" />
@@ -35,9 +35,9 @@
                 android:id="@+id/tv_ingredients"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="@dimen/tv_ingredients_margintop"
                 android:textColor="@color/icons"
-                android:textSize="13sp"
+                android:textSize="@dimen/tv_ingredients_textsize"
                 tool:text="- Graham Cracker crumbs (2 CUP)\n- unsalted butter, melted (6 TBLSP)\n- granulated sugar (0.5 CUP)" />
 
         </LinearLayout>
@@ -46,7 +46,7 @@
             android:id="@+id/rv_steps"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="6dp"
+            android:layout_marginTop="@dimen/rv_steps_margintop"
             android:background="@color/icons" />
 
     </LinearLayout>
